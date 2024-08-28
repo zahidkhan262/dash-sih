@@ -6,8 +6,9 @@ import SecurityBg from '../../assets/login-security.svg'
 
 const Login = () => {
 
-
+    const [isLogin, setIsLogin] = useState(true);
     const [formValues, setFormValues] = useState({
+        name: '',
         email: '',
         password: '',
     });
@@ -15,9 +16,13 @@ const Login = () => {
 
 
     const [errors, setErrors] = useState({
+        name: '',
         email: '',
         password: '',
     });
+
+
+    const toggleLogin = () => setIsLogin((login) => !login);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -67,8 +72,14 @@ const Login = () => {
                                 <p>or sign in with</p>
                             </div>
                             <form>
+                                {!isLogin ?
+                                    <div className="mb-3">
+                                        <label className="form-label">Name</label>
+                                        <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                    </div>
+                                    : ''}
                                 <div className="mb-3">
-                                    <label className="form-label">Username</label>
+                                    <label className="form-label">{isLogin ? 'Username' : 'Email'}</label>
                                     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                                 </div>
                                 <div className="mb-3">
@@ -81,10 +92,10 @@ const Login = () => {
                                     <p>Forgot Password ?</p>
                                 </div>
                                 <div className='btnSubmit'>
-                                    <button type="submit" className="btn btn-primary w-100">Submit</button>
+                                    <button type="submit" className="btn btn-primary w-100">{isLogin ? 'Sign In' : 'Sign Up'}</button>
                                 </div>
                                 <div className="createOne">
-                                    <p>New to Modernize? <span>Create an account</span>
+                                    <p>{!isLogin ? 'Already have an Account?' : 'New to Modernize?'} <span onClick={toggleLogin}>{isLogin ?  'Create an account':'Sign In' }</span>
                                     </p>
                                 </div>
                             </form>
