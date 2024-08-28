@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { FaAngleDown } from "react-icons/fa";
+import { FaAngleDown, FaAngleRight, FaAngleUp } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import SubMenu from "./submenu";
 import { menuAnimation, menuItemAnimation } from "../../utils/animate";
@@ -24,7 +24,7 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
     return (
         <>
             <div className="menu" onClick={toggleMenu}>
-                <div className="menu_item">
+                <div className="menu_item ">
                     <div className="menu-icon">{<route.icon />}</div>
                     <AnimatePresence>
                         {isOpen && (
@@ -33,7 +33,7 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
                                 initial="hidden"
                                 animate="show"
                                 exit="hidden"
-                                className="link_text"
+                                className="link_text "
                             >
                                 {route.name}
                             </motion.div>
@@ -44,11 +44,11 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
                     <motion.div
                         animate={
                             isMenuOpen
-                                ? { rotate: -90 }
+                                ? { rotate: 90 }
                                 : { rotate: 0 }
                         }
                     >
-                        <FaAngleDown />
+                        <FaAngleRight />
                     </motion.div>
                 )}
             </div>
@@ -60,7 +60,7 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
                         initial="hidden"
                         animate="show"
                         exit="hidden"
-                        className="menu_container"
+                        className="menu_container "
                     >
                         {route.subRoutes?.map((subRoute, i) => (
                             <motion.div variants={menuItemAnimation} key={i} custom={i}>
@@ -72,7 +72,7 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
                                         setIsOpen={setIsOpen}
                                     />
                                 ) : (
-                                    <NavLink to={subRoute.path} className="link ">
+                                    <NavLink to={subRoute.path} className="link  ">
                                         <div className="menu-icon">{<subRoute.icon />}</div>
                                         <motion.div className="link_text">{subRoute.name}</motion.div>
                                     </NavLink>

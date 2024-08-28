@@ -13,7 +13,7 @@ const SideBar = ({ children, setIsOpen, isOpen, isActive }) => {
             <div className="main-container">
                 <motion.div
                     animate={{
-                        width: isActive ? "300px" : "80px",
+                        width: isActive ? "260px" : "56px",
                         transition: {
                             duration: 0.5,
                             type: "spring",
@@ -65,7 +65,7 @@ const SideBar = ({ children, setIsOpen, isOpen, isActive }) => {
                     </section>
                 </motion.div>
 
-                <main>{children}</main>
+                <main className={isActive ? "isMain" :""}>{children}</main>
             </div>
         </>
     );

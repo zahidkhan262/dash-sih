@@ -28,20 +28,20 @@ const Header = () => {
                 <div className="with-vertical">
                     <nav className="navbar navbar-expand-lg w-full p-0 d-flex justify-content-between align-items-center">
 
-                        <ul className="navbar-nav quick-links d-none d-lg-flex align-items-center">
+                        <ul className="navbar-nav quick-links  d-lg-flex align-items-center">
                             <li className="nav-item nav-icon-hover-bg rounded-circle ms-n2" >
                                 <a className="nav-link sidebartoggler" id="headerCollapse" >
                                     <FaBars onClick={handleToggleBar} />
                                 </a>
                             </li>
-                            <li className="nav-item nav-icon-hover-bg rounded-circle d-none d-lg-flex">
+                            <li className="nav-item nav-icon-hover-bg rounded-circle  d-lg-flex">
                                 <a className="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     <FaSearch />
                                 </a>
                             </li>
                             {
                                 navMenu?.length && navMenu?.map((menu) => (
-                                    <li key={menu?.id} className="nav-item dropdown-hover d-none d-lg-block">
+                                    <li key={menu?.id} className="nav-item dropdown-hover  d-lg-block">
                                         <Link className="nav-link" to={menu?.path}>{menu?.name}</Link>
                                     </li>
                                 ))

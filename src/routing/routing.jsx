@@ -7,6 +7,7 @@ import Home from '../layout/home'
 import Register from '../pages/auth/register'
 import { useAuth } from '../context'
 import PrivateRoute from './private-route'
+import DashboardPage from '../pages/dashboard'
 
 const Routing = () => {
 
@@ -19,7 +20,7 @@ const Routing = () => {
 
             {/* protect route */}
             <Route element={<PrivateRoute />}>
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<DashboardPage />} />
             </Route>
 
         </Routes>

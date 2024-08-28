@@ -9,7 +9,7 @@ export const routes = [
     },
   
     {
-        path: '/cms',
+        path: '/users',
         name: "Users",
         icon: FaUser,
         subRoutes: [
@@ -20,31 +20,15 @@ export const routes = [
                 subMenus: [
                     {
                         path: '/blogs',
-                        name: "Blogs",
+                        name: "User Blogs",
                         icon: FaUser,
                     },
                     
-                    {
-                        path: '/author',
-                        name: "Author",
-                        icon: FaUser,
-                    },
                 ],
             },
             {
                 path: "/home-banner",
                 name: "Home Banner",
-                icon: FaUser,
-            },
-            
-            {
-                path: "/contact-location",
-                name: "Contact Location",
-                icon: FaUser,
-            },
-            {
-                path: "/leads",
-                name: "Leads",
                 icon: FaUser,
             },
         ],

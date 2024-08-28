@@ -20,7 +20,7 @@ const SubMenu = ({ subMenus, isOpen, showAnimation }) => {
                     {subMenus?.map((subMenu, i) => (
                         <motion.div variants={menuItemAnimation} key={i} custom={i}>
                             <NavLink to={subMenu.path} className="link">
-                                {/* <div className="menu-icon">{subMenu.icon}</div> */}
+                                <div className="menu-icon">{<subMenu.icon />}</div>
                                 <motion.div className="link_text">{subMenu.name}</motion.div>
                             </NavLink>
                         </motion.div>

@@ -11,7 +11,7 @@ const PrivateRoute = () => {
     const isAuth = true;
 
     return isAuth ?
-        <SideBar isActive={isActive}  setIsOpen={setIsOpen} isOpen={isOpen}>
+        <SideBar isActive={isActive}  setIsOpen={setIsOpen} isOpen={isOpen} handleToggleBar={handleToggleBar}>
             <Header />
             <Outlet />
         </SideBar>

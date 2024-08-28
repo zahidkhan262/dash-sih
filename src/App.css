@@ -10,6 +10,9 @@
     --lite-gray: #f0f0f0;
 }
 
+body {
+    overflow-x: hidden;
+}
 
 
 /* top bar */
@@ -18,7 +21,7 @@
     position: fixed;
     top: 0;
     right: 0;
-    width: calc(100% - 300px);
+    width: calc(100% - 260px);
     background: var(--white-color);
     z-index: 9;
     padding: 0 25px;
@@ -27,7 +30,7 @@
 }
 
 .topbar-active {
-    width: calc(100% - 80px);
+    width: calc(100% - 56px);
 }
 
 .topbar .navbar {
@@ -38,6 +41,19 @@
     box-shadow: none
 }
 
+@media (min-width: 776px) {
+    .navbar-nav {
+        flex-direction: row !important;
+        /* gap: 5px; */
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar-nav {
+        flex-direction: row !important;
+        gap: 10px;
+    }
+}
 
 /* .notification-card {
     position: absolute;
@@ -68,10 +84,56 @@
     list-style: none;
     background-color: var(--white-color);
     background-clip: padding-box;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.userDetails {
+    padding: 15px;
+}
+
+.message-section::-webkit-scrollbar {
+    width: 2px;
+}
+
+.message-section::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 1px;
+}
+
+.message-section::-webkit-scrollbar-track {
+    background-color: transparent;
+    /* Optional: change this if you want to customize the track */
+}
+
+.message-section {
+    overflow-y: auto;
+    max-height: 400px;
+    height: 100%;
+}
+
+.message-body {
+    margin: 6px 0px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s ease-in;
+
+}
+
+.message-body:hover .userName {
+    color: var(--primary-bg);
+}
+
+.userDetails h5 {
+    font-size: 15px;
 }
 
 .message-body:hover {
     background: var(--lite-gray);
+    border-radius: 6px;
 }
 
 .notification {
@@ -97,6 +159,12 @@
 main {
     width: 100%;
     background-color: #9be0a021;
+    margin-left: 56px;
+    margin-top: 70px;
+}
+
+.isMain {
+    margin-left: 260px;
 }
 
 
@@ -109,14 +177,14 @@ main {
     color: black;
     min-height: 100vh;
     overflow-y: auto;
-    padding-left: 20px;
+    padding: 11px;
     box-shadow: 3px -1px 9px 3px rgba(0, 0, 0, 0.15);
 
 }
 
 .menu-icon {
-    color: #50d387;
-    font-size: 17px;
+    color: var(--primary-bg);
+    font-size: 24px;
 }
 
 
@@ -162,6 +230,7 @@ main {
 
 .link {
     display: flex;
+    align-items: baseline;
     color: white;
     gap: 10px;
     padding: 5px 10px;
@@ -196,7 +265,7 @@ main {
 .menu {
     display: flex;
     color: black;
-
+    align-items: baseline;
     padding: 5px 10px;
     border-right: 4px solid transparent;
     transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
@@ -205,6 +274,7 @@ main {
 
 .menu_item {
     display: flex;
+    align-items: baseline;
     gap: 10px;
 }
 
@@ -333,4 +403,40 @@ span.checkRemember {
 label.form-label {
     font-size: 16px;
     font-weight: 500;
+}
+
+
+/* dashboard */
+
+.dashboard {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.dcard {
+    background-color: #f5f7fa;
+    /* Adjust color as needed */
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 400px;
+    width: 100%;
+    margin: 10px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dcard-icon {
+    margin-bottom: 10px;
+}
+
+.dcard-title {
+    font-size: 18px;
+    color: #333;
+}
+
+.dcard-value {
+    font-size: 24px;
+    color: #1a73e8;
+    /* Adjust color as needed */
 }
