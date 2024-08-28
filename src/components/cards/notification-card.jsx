@@ -1,5 +1,6 @@
 import React from 'react'
 import { useAuth } from '../../context'
+import { notificationData } from '../../utils/data'
 
 const NotificationCard = () => {
     const { notificationRef } = useAuth()
@@ -10,41 +11,23 @@ const NotificationCard = () => {
                 <span className="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
             </div>
             <div className="message-section">
-                <div className="message-body " data-simplebar>
-                    <a className=" d-flex align-items-center dropdown-item my-2">
-                        <span className="me-3">
-                            <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-2.jpg" alt="user" className="rounded-circle" width={40} height={40} />
-                        </span>
-                        <div className="w-100 userName">
-                            <h6 className="mb-1 fs-6 fw-semibold lh-base">Roman Joined the Team!</h6>
-                            <span className="d-block text-body-secondary">Congratulate him</span>
+                {
+                    notificationData?.map((noti) => (
+                        <div className="message-body " data-simplebar key={noti?.id}>
+                            <a className=" d-flex align-items-center dropdown-item my-2">
+                                <span className="me-3">
+                                    <img src={noti?.icon} alt="user" className="rounded-circle" width={40} height={40} />
+                                </span>
+                                <div className="w-100 userName">
+                                    <h6 className="mb-1 fs-6 fw-semibold lh-base">{noti?.title}</h6>
+                                    <span className="d-block text-body-secondary">{noti?.subTitle}</span>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-                <div className="message-body " data-simplebar>
-                    <a className=" d-flex align-items-center dropdown-item my-2">
-                        <span className="me-3">
-                            <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-2.jpg" alt="user" className="rounded-circle" width={40} height={40} />
-                        </span>
-                        <div className="w-100 userName">
-                            <h6 className="mb-1 fs-6 fw-semibold lh-base">Roman Joined the Team!</h6>
-                            <span className="d-block text-body-secondary">Congratulate him</span>
-                        </div>
-                    </a>
-                </div>
-                <div className="message-body " data-simplebar>
-                    <a className=" d-flex align-items-center dropdown-item my-2">
-                        <span className="me-3">
-                            <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-2.jpg" alt="user" className="rounded-circle" width={40} height={40} />
-                        </span>
-                        <div className="w-100 userName">
-                            <h6 className="mb-1 fs-6 fw-semibold lh-base">Roman Joined the Team!</h6>
-                            <span className="d-block text-body-secondary">Congratulate him</span>
-                        </div>
-                    </a>
-                </div>
-                
-              
+                    ))
+                }
+
+
             </div>
 
             <div className="py-6 px-7 mb-1">

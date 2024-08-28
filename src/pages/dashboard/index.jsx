@@ -14,7 +14,6 @@ const DashboardPage = () => {
     const labels = chartData?.map(({ label }) => (label));
     const values = chartData?.map(({ value }) => (value));
 
-    console.log(values)
     return (
         <div className="container">
             <DashCard />

@@ -7,7 +7,7 @@ export const routes = [
         name: "Home",
         icon: FaHome,
     },
-  
+
     {
         path: '/users',
         name: "Users",
@@ -23,7 +23,7 @@ export const routes = [
                         name: "User Blogs",
                         icon: FaUser,
                     },
-                    
+
                 ],
             },
             {
@@ -58,20 +58,42 @@ export const navMenu = [
     },
 ]
 
+export const notificationData = [
+    {
+        id: 1,
+        title: 'Roman Joined the team',
+        subTitle: 'Congratultion',
+        icon: 'https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-2.jpg'
+    },
+    {
+        id: 2,
+        title: 'Priyanshay Joined the team',
+        subTitle: 'Congratultion',
+        icon: 'https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-2.jpg'
+    },
+    {
+        id: 3,
+        title: 'Shruti Joined the team',
+        subTitle: 'Congratultion',
+        icon: 'https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/profile/user-2.jpg'
+    },
+
+]
+
 export const chartData = [
     {
-        id:1,
-        label:'Alumni',
-        value:300
+        id: 1,
+        label: 'Alumni',
+        value: 300
     },
     {
-        id:2,
-        label:'Students',
-        value:100
+        id: 2,
+        label: 'Students',
+        value: 100
     },
     {
-        id:3,
-        label:'Jobs',
-        value:80
+        id: 3,
+        label: 'Jobs',
+        value: 80
     },
 ]
