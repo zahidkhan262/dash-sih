@@ -57,3 +57,21 @@ export const navMenu = [
         name: 'Email'
     },
 ]
+
+export const chartData = [
+    {
+        id:1,
+        label:'Alumni',
+        value:300
+    },
+    {
+        id:2,
+        label:'Students',
+        value:100
+    },
+    {
+        id:3,
+        label:'Jobs',
+        value:80
+    },
+]

@@ -14,6 +14,35 @@ body {
     overflow-x: hidden;
 }
 
+.main-container {
+    display: flex;
+    background-color: var(--white-color);
+}
+
+
+main {
+    width: 100%;
+    background-color: var(--white-color);
+    margin-left: 56px;
+    margin-top: 70px;
+}
+
+.isMain {
+    margin-left: 260px;
+}
+
+.logo {
+    padding: 10px;
+}
+
+.logo svg {
+    font-size: 24px;
+}
+
+.logo span {
+    padding-left: 10px;
+}
+
 
 /* top bar */
 
@@ -55,20 +84,7 @@ body {
     }
 }
 
-/* .notification-card {
-    position: absolute;
-    right: 0;
-    z-index: 10;
-    max-width: 400px;
-    padding: 10px;
-    margin: 0;
-    font-size: 15px;
-    color: #000;
-    text-align: left;
-    list-style: none;
-    background-color: var(--white-color);
-    background-clip: padding-box;
-} */
+
 
 .notification-card,
 .profile-card {
@@ -150,22 +166,7 @@ body {
 /* sidebar css */
 
 
-.main-container {
-    display: flex;
-    background-color: var(--white-color);
-}
 
-
-main {
-    width: 100%;
-    background-color: #9be0a021;
-    margin-left: 56px;
-    margin-top: 70px;
-}
-
-.isMain {
-    margin-left: 260px;
-}
 
 
 /* Sidebar */
@@ -188,11 +189,6 @@ main {
 }
 
 
-
-.logo {
-    font-size: 18px;
-    padding: 20px;
-}
 
 .bars {
     font-size: 22px;
@@ -429,6 +425,10 @@ label.form-label {
 .dcard-icon {
     margin-bottom: 10px;
 }
+.dcard-icon svg{
+    color: var(--primary-bg);
+    font-size: 30px;
+}
 
 .dcard-title {
     font-size: 18px;
@@ -439,4 +439,20 @@ label.form-label {
     font-size: 24px;
     color: #1a73e8;
     /* Adjust color as needed */
+}
+
+
+
+/* chart */
+
+.charts {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pie-chart {
+    width: 300px;
+    height: 300px;
 }

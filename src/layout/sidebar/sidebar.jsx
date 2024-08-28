@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./sidebarmenu";
 import { routes } from "../../utils/data";
 import { showAnimation } from "../../utils/animate";
+import { FaHome } from "react-icons/fa";
 
 const SideBar = ({ children, setIsOpen, isOpen, isActive }) => {
 
@@ -20,9 +21,24 @@ const SideBar = ({ children, setIsOpen, isOpen, isActive }) => {
                             damping: 10,
                         },
                     }}
-                    className="sidebar"
+                    className="sidebar "
                 >
-                    <div className="logo">Dashboard</div>
+                    <div className="logo">
+                        <FaHome className="text-primary" />
+                        <AnimatePresence>
+                            {isActive && (
+                                <motion.span
+                                    variants={showAnimation}
+                                    initial="hidden"
+                                    animate="show"
+                                    exit="hidden"
+                                    className=""
+                                >
+                                    Dashboard
+                                </motion.span>
+                            )}
+                        </AnimatePresence>
+                    </div>
 
                     <section className="routes">
                         {routes.map((route, index) => {
@@ -65,7 +81,7 @@ const SideBar = ({ children, setIsOpen, isOpen, isActive }) => {
                     </section>
                 </motion.div>
 
-                <main className={isActive ? "isMain" :""}>{children}</main>
+                <main className={isActive ? "isMain" : ""}>{children}</main>
             </div>
         </>
     );

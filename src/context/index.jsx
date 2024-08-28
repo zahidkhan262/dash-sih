@@ -19,7 +19,6 @@ const DataProvider = ({ children }) => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            console.log("first")
             if (notificationRef.current && !notificationRef.current.contains(event.target)) {
                 setIsNotification(false);
             }
