@@ -43,11 +43,6 @@ export const routes = [
             },
         ],
     },
-    {
-        path: "/settings",
-        name: "Setting",
-        icon: FaUser,
-    },
 ];
 
 export const navMenu = [
