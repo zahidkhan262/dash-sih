@@ -1,43 +1,27 @@
 import { NavLink } from "react-router-dom";
 import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./sidebarmenu";
 import { routes } from "../../utils/data";
-import { showAnimation } from "../../utils/animate";
-import { FaHome, FaProjectDiagram } from "react-icons/fa";
+import { FaProjectDiagram } from "react-icons/fa";
 
 const SideBar = ({ children, setIsOpen, isOpen, isActive }) => {
-
-
     return (
         <>
             <div className="main-container">
-                <motion.div
-                    animate={{
+                <div
+                    className="sidebar"
+                    style={{
                         width: isActive ? "260px" : "55px",
-                        transition: {
-                            duration: 0.5,
-                            type: "spring",
-                            damping: 10,
-                        },
+                        transition: "width 0.5s ease-in-out",
                     }}
-                    className="sidebar "
                 >
                     <div className="logo">
                         <FaProjectDiagram className="text-primary" />
-                        <AnimatePresence>
-                            {isActive && (
-                                <motion.span
-                                    variants={showAnimation}
-                                    initial="hidden"
-                                    animate="show"
-                                    exit="hidden"
-                                    className=""
-                                >
-                                    User Dash
-                                </motion.span>
-                            )}
-                        </AnimatePresence>
+                        {isActive && (
+                            <span className="">
+                                User Dash
+                            </span>
+                        )}
                     </div>
 
                     <section className="routes">
@@ -48,7 +32,6 @@ const SideBar = ({ children, setIsOpen, isOpen, isActive }) => {
                                         key={index}
                                         setIsOpen={setIsOpen}
                                         route={route}
-                                        showAnimation={showAnimation}
                                         isOpen={isOpen}
                                     />
                                 );
@@ -62,24 +45,16 @@ const SideBar = ({ children, setIsOpen, isOpen, isActive }) => {
                                     activeclassname="active"
                                 >
                                     <div className="menu-icon">{<route.icon />}</div>
-                                    <AnimatePresence>
-                                        {isOpen && (
-                                            <motion.div
-                                                variants={showAnimation}
-                                                initial="hidden"
-                                                animate="show"
-                                                exit="hidden"
-                                                className="link_text sidebar-menu"
-                                            >
-                                                {route.name}
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
+                                    {isOpen && (
+                                        <div className="link_text sidebar-menu">
+                                            {route.name}
+                                        </div>
+                                    )}
                                 </NavLink>
                             );
                         })}
                     </section>
-                </motion.div>
+                </div>
 
                 <main className={isActive ? "isMain" : ""}>{children}</main>
             </div>

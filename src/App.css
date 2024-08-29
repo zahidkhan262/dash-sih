@@ -14,10 +14,13 @@
 body {
     overflow-x: hidden;
 }
-input,button{
+
+input,
+button {
     border: none;
     outline: none;
 }
+
 .main-container {
     display: flex;
     background-color: var(--white-color);
@@ -538,4 +541,84 @@ label.form-label {
     color: #fff;
     background-color: #0b5ed7;
     border-color: #0a58ca;
+}
+
+/* form */
+
+.form-box {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.form-box h2 {
+    text-align: center;
+    color: #333333;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.5em;
+}
+
+.form-box .form-group {
+    margin-bottom: 15px;
+}
+
+.form-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555555;
+}
+
+.form-box input[type="text"],
+.form-box input[type="email"],
+.form-box input[type="password"],
+.form-box textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #333333;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+}
+
+.form-box input[type="text"]:focus,
+.form-box input[type="email"]:focus,
+.form-box input[type="password"]:focus,
+.form-box textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    background-color: #ffffff;
+}
+
+.form-box button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s;
+}
+
+.form-box button[type="submit"]:hover {
+    background-color: #0056b3;
+    /* Darker blue on hover */
+}
+
+.form-box .form-text {
+    font-size: 0.9em;
+    color: #666666;
+    text-align: center;
+    margin-top: 15px;
 }

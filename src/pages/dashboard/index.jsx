@@ -18,6 +18,8 @@ const DashboardPage = () => {
         <div className="container">
             <DashCard />
             <div className="row">
+                <h3 className='px-4 py-2'>Overview</h3>
+                <hr />
                 <div className="col-md-4">
                     <PieChart labels={labels} values={values} />
                 </div>

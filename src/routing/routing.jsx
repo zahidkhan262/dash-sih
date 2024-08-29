@@ -10,6 +10,8 @@ import PrivateRoute from './private-route'
 import DashboardPage from '../pages/dashboard'
 import Alumni from '../pages/dashboard/alumni'
 import Users from '../pages/dashboard/users'
+import AlumniForm from '../pages/dashboard/alumni-form'
+import StudentForm from '../pages/dashboard/student-form'
 
 const Routing = () => {
 
@@ -25,6 +27,8 @@ const Routing = () => {
                 <Route path="/" element={<DashboardPage />} />
                 <Route path="/alumni" element={<Alumni />} />
                 <Route path="/users" element={<Users />} />
+                <Route path="/create-alumni" element={<AlumniForm />} />
+                <Route path="/create-students" element={<StudentForm />} />
             </Route>
 
         </Routes>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import DataTable from 'react-data-table-component';
 import CustomModal from '../modal/custom-modal';
+import { useNavigate } from 'react-router-dom';
 
 const data = [
     { id: 1, name: 'Priyanshay ', age: 28, email: 'priyu@example.com' },
@@ -71,22 +72,15 @@ const alumniFields = [
 ];
 
 
-const initialValues = {
-    alumniName: '',
-    passoutYear: '',
-    occupation: ''
 
-}
 
 const DashTable = () => {
     const [filterText, setFilterText] = useState('');
     const [filteredItems, setFilteredItems] = useState(data);
-    const [showModal, setShowModal] = useState(false);
+
+    const navigate = useNavigate();
 
 
-    const handleSaveAlumni = (formData) => {
-        console.log('Alumni Data:', formData);
-    };
 
 
     const handleFilterChange = (event) => {
@@ -108,7 +102,7 @@ const DashTable = () => {
                     onChange={handleFilterChange}
                     className='dash-filter'
                 />
-                <button className='add-btn' onClick={() => setShowModal(true)}>Add Alumni</button>
+                <button className='add-btn' onClick={() => navigate("/create-students")}>Add Students</button>
             </div>
             <DataTable
                 columns={columns}
@@ -118,15 +112,6 @@ const DashTable = () => {
                 pointerOnHover
                 customStyles={customStyles}
                 className='dash-table'
-            />
-            <CustomModal
-                title="Add Alumni"
-                fields={alumniFields}
-                onSave={handleSaveAlumni}
-                show={showModal}
-                handleClose={() => setShowModal(false)}
-                initialValues={initialValues}
-
             />
         </div>
     );

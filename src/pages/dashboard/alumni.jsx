@@ -5,8 +5,6 @@ const Alumni = () => {
 
 
 
-
-
     return (
         <div className='container p-4'>
             <h2>Alumni Details</h2>

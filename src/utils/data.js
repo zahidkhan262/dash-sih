@@ -18,31 +18,31 @@ export const routes = [
         icon: FaUser,
     },
 
-    {
-        path: '/more',
-        name: "More",
-        icon: FaUser,
-        subRoutes: [
-            {
-                path: '/blog',
-                name: "Blog",
-                icon: FaMoneyBill,
-                subMenus: [
-                    {
-                        path: '/blogs',
-                        name: "User Blogs",
-                        icon: FaUser,
-                    },
+    // {
+    //     path: '/more',
+    //     name: "More",
+    //     icon: FaUser,
+    //     subRoutes: [
+    //         {
+    //             path: '/blog',
+    //             name: "Blog",
+    //             icon: FaMoneyBill,
+    //             subMenus: [
+    //                 {
+    //                     path: '/blogs',
+    //                     name: "User Blogs",
+    //                     icon: FaUser,
+    //                 },
 
-                ],
-            },
-            {
-                path: "/home-banner",
-                name: "Home Banner",
-                icon: FaUser,
-            },
-        ],
-    },
+    //             ],
+    //         },
+    //         {
+    //             path: "/home-banner",
+    //             name: "Home Banner",
+    //             icon: FaUser,
+    //         },
+    //     ],
+    // },
 ];
 
 export const navMenu = [

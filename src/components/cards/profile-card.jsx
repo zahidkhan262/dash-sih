@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaMailBulk } from 'react-icons/fa'
 import { useAuth } from '../../context'
+import { Link } from 'react-router-dom'
 
 const ProfileCard = () => {
 
@@ -46,7 +47,7 @@ const ProfileCard = () => {
                             <span className="d-block text-body-secondary">Account Settings</span>
                         </div>
                     </div>
-                    <a href="https://bootstrapdemos.adminmart.com/modernize/dist/main/authentication-login.html" className="btn btn-outline-primary mt-4 col-12">Log Out</a>
+                    <Link to="/login" className="btn btn-outline-primary mt-4 col-12">Log Out</Link>
                 </div>
             </div>
 
