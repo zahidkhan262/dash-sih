@@ -5,7 +5,8 @@
 }
 
 :root {
-    --primary-bg: #4494fd;
+    --primary-bg: #0d6efd;
+    --primary-lite-bg: #b1cdf377;
     --white-color: #ffffff;
     --lite-gray: #f0f0f0;
 }
@@ -13,7 +14,10 @@
 body {
     overflow-x: hidden;
 }
-
+input,button{
+    border: none;
+    outline: none;
+}
 .main-container {
     display: flex;
     background-color: var(--white-color);
@@ -232,23 +236,27 @@ main {
     padding: 5px 10px;
     border-right: 4px solid transparent;
     transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+    border-radius: 10PX;
+
 }
 
 .link:hover {
     transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
-    border-radius: 10PX;
+    background: var(--primary-lite-bg);
+    text-decoration: none;
+
 }
 
 .active {
     border: none;
-    background: #50d387;
+    background: var(--primary-lite-bg);
     text-decoration: none;
 }
 
 .link_text {
     white-space: nowrap;
     font-size: 17px;
-    color: #003323;
+    color: #0a3628;
     text-decoration: none;
     font-weight: 600;
 }
@@ -425,14 +433,16 @@ label.form-label {
 .dcard-icon {
     margin-bottom: 10px;
 }
-.dcard-icon svg{
+
+.dcard-icon svg {
     color: var(--primary-bg);
     font-size: 30px;
 }
 
 .dcard-title {
-    font-size: 18px;
+    font-size: 23px;
     color: #333;
+    font-weight: 700;
 }
 
 .dcard-value {
@@ -455,4 +465,77 @@ label.form-label {
 .pie-chart {
     width: 300px;
     height: 300px;
+}
+
+
+.fontIcon1 svg {
+    background: #d0d5d3a1;
+    padding: -7px;
+    height: 50px;
+    width: 50px;
+    padding: 11px;
+    border-radius: 10px;
+}
+
+.fontIcon2 svg {
+    background: #95ecff;
+    padding: -7px;
+    height: 50px;
+    width: 50px;
+    padding: 11px;
+    border-radius: 10px;
+}
+
+.fontIcon3 svg {
+    background: #ffb9bf;
+    padding: -7px;
+    height: 50px;
+    width: 50px;
+    padding: 11px;
+    border-radius: 10px;
+}
+
+/* dashboard table */
+.dash-table {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    border-radius: 4px !important;
+}
+
+.dash-filter {
+    padding: 10px;
+    border: 1px solid var(--lite-gray);
+    max-width: 400px;
+    width: 100%;
+    margin: 20px 0px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.15);
+
+}
+
+.add-btn {
+
+
+
+    cursor: pointer;
+    outline: 0;
+    color: #fff;
+    background-color: var(--primary-bg);
+    border-color: #0d6efd;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 16px;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+
+}
+
+.add-btn:hover {
+    color: #fff;
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
 }

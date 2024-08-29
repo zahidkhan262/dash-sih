@@ -8,6 +8,8 @@ import Register from '../pages/auth/register'
 import { useAuth } from '../context'
 import PrivateRoute from './private-route'
 import DashboardPage from '../pages/dashboard'
+import Alumni from '../pages/dashboard/alumni'
+import Users from '../pages/dashboard/users'
 
 const Routing = () => {
 
@@ -21,6 +23,8 @@ const Routing = () => {
             {/* protect route */}
             <Route element={<PrivateRoute />}>
                 <Route path="/" element={<DashboardPage />} />
+                <Route path="/alumni" element={<Alumni />} />
+                <Route path="/users" element={<Users />} />
             </Route>
 
         </Routes>

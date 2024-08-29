@@ -3,14 +3,24 @@ import { AiTwotoneFileExclamation } from "react-icons/ai";
 
 export const routes = [
     {
-        path: '/home',
-        name: "Home",
+        path: '/',
+        name: "Dashboard",
         icon: FaHome,
     },
-
+    {
+        path: '/alumni',
+        name: "Alumni",
+        icon: FaUser,
+    },
     {
         path: '/users',
         name: "Users",
+        icon: FaUser,
+    },
+
+    {
+        path: '/more',
+        name: "More",
         icon: FaUser,
         subRoutes: [
             {

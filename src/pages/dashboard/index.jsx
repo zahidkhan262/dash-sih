@@ -25,7 +25,8 @@ const DashboardPage = () => {
                     <ColumnChart />
                 </div>
             </div>
-            <p className='py-4'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eos at itaque illo ratione porro totam enim, quas ullam a neque.</p>
+            
+           
         </div>
     )
 }

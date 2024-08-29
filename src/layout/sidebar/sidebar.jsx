@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./sidebarmenu";
 import { routes } from "../../utils/data";
 import { showAnimation } from "../../utils/animate";
-import { FaHome } from "react-icons/fa";
+import { FaHome, FaProjectDiagram } from "react-icons/fa";
 
 const SideBar = ({ children, setIsOpen, isOpen, isActive }) => {
 
@@ -24,7 +24,7 @@ const SideBar = ({ children, setIsOpen, isOpen, isActive }) => {
                     className="sidebar "
                 >
                     <div className="logo">
-                        <FaHome className="text-primary" />
+                        <FaProjectDiagram className="text-primary" />
                         <AnimatePresence>
                             {isActive && (
                                 <motion.span
@@ -34,7 +34,7 @@ const SideBar = ({ children, setIsOpen, isOpen, isActive }) => {
                                     exit="hidden"
                                     className=""
                                 >
-                                    Dashboard
+                                    User Dash
                                 </motion.span>
                             )}
                         </AnimatePresence>
