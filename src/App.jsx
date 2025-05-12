@@ -98,3 +98,168 @@ const LazyImg = ({ src = DEFAULT_IMAGE, alt = APP_TITLE, placeholder, title = AP
 
 export default LazyImg;
 
+
+
+// components/GooglePlaceSearch.tsx
+import React, { useEffect, useState, useRef } from 'react';
+
+type PlaceResult = {
+  description: string;
+  place_id: string;
+};
+
+type Props = {
+  className?: string;
+  onChange: (value: {
+    fullAddress: string;
+    formattedAddress: string;
+    lat: number;
+    lng: number;
+  }) => void;
+};
+
+const GooglePlaceSearch: React.FC<Props> = ({ className, onChange }) => {
+  const [input, setInput] = useState('');
+  const [suggestions, setSuggestions] = useState<PlaceResult[]>([]);
+  const autocompleteServiceRef = useRef<google.maps.places.AutocompleteService | null>(null);
+  const placesServiceRef = useRef<google.maps.places.PlacesService | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!autocompleteServiceRef.current && window.google) {
+      autocompleteServiceRef.current = new window.google.maps.places.AutocompleteService();
+    }
+
+    if (!placesServiceRef.current && window.google && containerRef.current) {
+      placesServiceRef.current = new window.google.maps.places.PlacesService(containerRef.current);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (input && autocompleteServiceRef.current) {
+      autocompleteServiceRef.current.getPlacePredictions(
+        { input, types: ['geocode'] },
+        (predictions) => {
+          if (predictions) {
+            setSuggestions(
+              predictions.map((p) => ({
+                description: p.description,
+                place_id: p.place_id,
+              }))
+            );
+          }
+        }
+      );
+    } else {
+      setSuggestions([]);
+    }
+  }, [input]);
+
+  const handleSelect = (placeId: string) => {
+    if (!placesServiceRef.current) return;
+
+    placesServiceRef.current.getDetails({ placeId }, (place, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK && place?.geometry?.location) {
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+        const formattedAddress = place.formatted_address || '';
+        const fullAddress = place.name || formattedAddress;
+
+        onChange({
+          fullAddress,
+          formattedAddress,
+          lat,
+          lng,
+        });
+
+        setInput(formattedAddress);
+        setSuggestions([]);
+      }
+    });
+  };
+
+  return (
+    <div className={className}>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        className="border p-2 w-full"
+        placeholder="Search address..."
+      />
+      <div ref={containerRef} style={{ display: 'none' }} /> {/* Needed for PlacesService */}
+      {suggestions.length > 0 && (
+        <ul className="bg-white shadow-md border rounded mt-1 max-h-60 overflow-auto z-10">
+          {suggestions.map((s, index) => (
+            <li
+              key={index}
+              onClick={() => handleSelect(s.place_id)}
+              className="p-2 hover:bg-gray-100 cursor-pointer"
+            >
+              {s.description}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default GooglePlaceSearch;
+
+
+    //map
+
+// components/CustomGoogleMap.tsx
+import React, { useState } from 'react';
+import { APIProvider, Map, Marker, InfoWindow } from '@vis.gl/react-google-maps';
+
+type Clinic = {
+  id: string;
+  name: string;
+  lat: number;
+  lng: number;
+};
+
+type Props = {
+  className?: string;
+  selectedLocation: { lat: number; lng: number };
+  clinicData: Clinic[];
+};
+
+const GOOGLE_MAPS_API_KEY = 'YOUR_API_KEY_HERE';
+
+const CustomGoogleMap: React.FC<Props> = ({ className, selectedLocation, clinicData }) => {
+  const [activeClinic, setActiveClinic] = useState<Clinic | null>(null);
+
+  return (
+    <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
+      <div className={className}>
+        <Map
+          center={selectedLocation}
+          zoom={12}
+          style={{ width: '100%', height: '400px' }}
+        >
+          {clinicData.map((clinic) => (
+            <Marker
+              key={clinic.id}
+              position={{ lat: clinic.lat, lng: clinic.lng }}
+              onClick={() => setActiveClinic(clinic)}
+              onMouseOver={() => setActiveClinic(clinic)}
+            />
+          ))}
+
+          {activeClinic && (
+            <InfoWindow position={{ lat: activeClinic.lat, lng: activeClinic.lng }} onCloseClick={() => setActiveClinic(null)}>
+              <div>{activeClinic.name}</div>
+            </InfoWindow>
+          )}
+        </Map>
+      </div>
+    </APIProvider>
+  );
+};
+
+export default CustomGoogleMap;
+
+
