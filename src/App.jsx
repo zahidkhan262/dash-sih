@@ -263,3 +263,164 @@ const CustomGoogleMap: React.FC<Props> = ({ className, selectedLocation, clinicD
 export default CustomGoogleMap;
 
 
+  export const getStoredForm = () => {
+  const data = localStorage.getItem('treatmentForm');
+  return data ? JSON.parse(data) : null;
+};
+
+export const storeForm = (values: any) => {
+  localStorage.setItem('treatmentForm', JSON.stringify(values));
+};
+
+
+  import { Formik, Form } from 'formik';
+import { getStoredForm } from './utils/localStorage';
+import PetInfo from './components/PetInfo';
+import TreatmentInfo from './components/TreatmentInfo';
+import ClinicInfo from './components/ClinicInfo';
+
+const initialFormValues = {
+  petType: '',
+  petName: '',
+  treatmentName: '',
+  serviceProvider: '',
+  clinicAddress: '',
+};
+
+const SearchTreatmentForm = () => {
+  const storedValues = getStoredForm();
+
+  return (
+    <Formik initialValues={storedValues || initialFormValues} onSubmit={console.log}>
+      <Form className="flex flex-col gap-4">
+        <PetInfo />
+        <TreatmentInfo />
+        <ClinicInfo />
+        <button type="submit" className="bg-blue-600 text-white p-2 rounded">Submit</button>
+      </Form>
+    </Formik>
+  );
+};
+
+export default SearchTreatmentForm;
+import { useFormikContext } from 'formik';
+import { useEffect } from 'react';
+import { storeForm } from '../utils/localStorage';
+
+const PetInfo = () => {
+  const { values, handleChange } = useFormikContext<any>();
+
+  // Persist pet fields on change
+  useEffect(() => {
+    storeForm(values);
+  }, [values.petType, values.petName]);
+
+  return (
+    <div className="flex gap-4">
+      <input
+        type="text"
+        name="petType"
+        placeholder="Pet Type"
+        value={values.petType}
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="petName"
+        placeholder="Pet Name"
+        value={values.petName}
+        onChange={handleChange}
+      />
+    </div>
+  );
+};
+
+export default PetInfo;
+//second
+
+
+    // hooks/useLocalStorage.ts
+import { useState, useEffect } from 'react';
+
+export const useLocalStorage = <T>(key: string, initialValue: T) => {
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    try {
+      const item = localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.warn('Error reading localStorage', error);
+      return initialValue;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(key, JSON.stringify(storedValue));
+    } catch (error) {
+      console.warn('Error setting localStorage', error);
+    }
+  }, [key, storedValue]);
+
+  return [storedValue, setStoredValue] as const;
+};
+import React from 'react';
+import { useLocalStorage } from './hooks/useLocalStorage';
+
+const SearchTreatmentForm = () => {
+  const [formValues, setFormValues] = useLocalStorage('treatmentForm', {
+    petType: '',
+    petName: '',
+    treatmentName: '',
+    serviceProvider: '',
+    clinicAddress: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormValues(prev => ({ ...prev, [name]: value }));
+  };
+
+  return (
+    <form className="flex gap-4">
+      <input
+        type="text"
+        name="petType"
+        placeholder="Pet Type"
+        value={formValues.petType}
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="petName"
+        placeholder="Pet Name"
+        value={formValues.petName}
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="treatmentName"
+        placeholder="Treatment Name"
+        value={formValues.treatmentName}
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="serviceProvider"
+        placeholder="Service Provider"
+        value={formValues.serviceProvider}
+        onChange={handleChange}
+      />
+      <input
+        type="text"
+        name="clinicAddress"
+        placeholder="Clinic Address"
+        value={formValues.clinicAddress}
+        onChange={handleChange}
+      />
+    </form>
+  );
+};
+
+export default SearchTreatmentForm;
+
+
