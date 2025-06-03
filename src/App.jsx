@@ -424,3 +424,293 @@ const SearchTreatmentForm = () => {
 export default SearchTreatmentForm;
 
 
+    ------------------new-------------------
+
+    import { useEffect, useRef } from "react";
+
+export function useFormAutoSync(formData: any, userId: string) {
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // ✅ API Call Function
+  const saveToServer = () => {
+    if (formData) {
+      fetch("/api/save-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, formData }),
+      });
+    }
+  };
+
+  // ✅ Save to localStorage whenever formData changes
+  useEffect(() => {
+    localStorage.setItem("formData", JSON.stringify(formData));
+  }, [formData]);
+
+  // ✅ Inactivity logic (1 minute)
+  useEffect(() => {
+    const resetTimer = () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
+        saveToServer();
+      }, 60000); // 1 minute
+    };
+
+    window.addEventListener("mousemove", resetTimer);
+    window.addEventListener("keydown", resetTimer);
+    window.addEventListener("mousedown", resetTimer);
+    window.addEventListener("scroll", resetTimer);
+    window.addEventListener("touchstart", resetTimer);
+
+    resetTimer(); // Start the initial timer
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      window.removeEventListener("mousemove", resetTimer);
+      window.removeEventListener("keydown", resetTimer);
+      window.removeEventListener("mousedown", resetTimer);
+      window.removeEventListener("scroll", resetTimer);
+      window.removeEventListener("touchstart", resetTimer);
+    };
+  }, [formData]);
+
+  // ✅ Before unload
+  useEffect(() => {
+    const handleUnload = () => saveToServer();
+    window.addEventListener("beforeunload", handleUnload);
+    return () => window.removeEventListener("beforeunload", handleUnload);
+  }, [formData]);
+}
+-----------------
+    import { useEffect, useState, useRef } from "react";
+
+interface FormData {
+  petType: string;
+  petName: string;
+  treatmentName: string;
+  clinicName: string;
+  clinicAddress: string;
+}
+
+const initialFormData: FormData = {
+  petType: "",
+  petName: "",
+  treatmentName: "",
+  clinicName: "",
+  clinicAddress: "",
+};
+
+export default function FormComponent() {
+  const [formData, setFormData] = useState<FormData>(() => {
+    const saved = localStorage.getItem("formData");
+    return saved ? JSON.parse(saved) : initialFormData;
+  });
+
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // ✅ फॉर्म चेंज हैंडलर
+  const handleChange = (name: keyof FormData, value: string) => {
+    const updated = { ...formData, [name]: value };
+    setFormData(updated);
+    localStorage.setItem("formData", JSON.stringify(updated));
+  };
+
+  // ✅ API कॉल फंक्शन (reuseable)
+  const saveToServer = () => {
+    const data = localStorage.getItem("formData");
+    if (data) {
+      fetch("/api/save-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: "user123",
+          formData: JSON.parse(data),
+        }),
+      });
+    }
+  };
+
+  // ✅ जब टैब बंद हो, ब्राउज़र बंद हो, या पेज reload हो
+  useEffect(() => {
+    const handleUnload = () => saveToServer();
+    window.addEventListener("beforeunload", handleUnload);
+    return () => window.removeEventListener("beforeunload", handleUnload);
+  }, []);
+
+  // ✅ 1 मिनट inactivity पर API कॉल
+  useEffect(() => {
+    const resetTimer = () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => {
+        saveToServer(); // 1 मिनट inactivity पर API कॉल
+      }, 60000); // 60 सेकंड = 1 मिनट
+    };
+
+    // कुछ भी activity हुई तो टाइमर रीसेट करो
+    window.addEventListener("mousemove", resetTimer);
+    window.addEventListener("keydown", resetTimer);
+    window.addEventListener("mousedown", resetTimer);
+    window.addEventListener("scroll", resetTimer);
+    window.addEventListener("touchstart", resetTimer);
+
+    resetTimer(); // शुरुआती कॉल
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      window.removeEventListener("mousemove", resetTimer);
+      window.removeEventListener("keydown", resetTimer);
+      window.removeEventListener("mousedown", resetTimer);
+      window.removeEventListener("scroll", resetTimer);
+      window.removeEventListener("touchstart", resetTimer);
+    };
+  }, []);
+
+  return (
+    <div className="space-y-4">
+      {/* Example Input */}
+      <input
+        type="text"
+        value={formData.petName}
+        placeholder="Pet Name"
+        onChange={(e) => handleChange("petName", e.target.value)}
+        className="border px-3 py-2"
+      />
+
+      <input
+        type="text"
+        value={formData.clinicAddress}
+        placeholder="Clinic Address"
+        onChange={(e) => handleChange("clinicAddress", e.target.value)}
+        className="border px-3 py-2"
+      />
+
+      {/* बाकी फील्ड्स भी ऐसे ही */}
+    </div>
+  );
+}
+--------------
+    import { useEffect } from "react";
+
+export const useDebouncedSave = (data: FormData, userId: string, delay = 1500) => {
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      // 1. LocalStorage में सेव करें
+      localStorage.setItem("formData", JSON.stringify(data));
+
+      // 2. Backend पर API कॉल करें
+      fetch("/api/save-form", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, formData: data }),
+      });
+    }, delay);
+
+    return () => clearTimeout(handler); // हर बार पुराने टाइमर को क्लियर करें
+  }, [data, delay, userId]);
+};
+-----------
+
+    import React, { useState } from "react";
+import { FormData } from "./types";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from "@/components/ui/select";
+
+const initialFormState: FormData = {
+  petType: "",
+  petName: "",
+  treatmentName: "",
+  clinicName: "",
+  clinicAddress: "",
+};
+
+const FormComponent: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>(() => {
+    const saved = localStorage.getItem("formData");
+    return saved ? JSON.parse(saved) : initialFormState;
+  });
+
+  const handleChange = (name: keyof FormData, value: string) => {
+    const updated = { ...formData, [name]: value };
+    setFormData(updated);
+    localStorage.setItem("formData", JSON.stringify(updated));
+  };
+
+  return (
+    <div className="space-y-4 max-w-md mx-auto p-4">
+      {/* Pet Type */}
+      <Select
+        value={formData.petType}
+        onValueChange={(val) => handleChange("petType", val)}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Select Pet Type" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="Dog">Dog</SelectItem>
+          <SelectItem value="Cat">Cat</SelectItem>
+        </SelectContent>
+      </Select>
+
+      {/* Pet Name */}
+      <Select
+        value={formData.petName}
+        onValueChange={(val) => handleChange("petName", val)}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Select Pet Name" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="Tommy">Tommy</SelectItem>
+          <SelectItem value="Kitty">Kitty</SelectItem>
+        </SelectContent>
+      </Select>
+
+      {/* Treatment Name */}
+      <Select
+        value={formData.treatmentName}
+        onValueChange={(val) => handleChange("treatmentName", val)}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Select Treatment" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="Vaccination">Vaccination</SelectItem>
+          <SelectItem value="Surgery">Surgery</SelectItem>
+        </SelectContent>
+      </Select>
+
+      {/* Clinic Name */}
+      <Select
+        value={formData.clinicName}
+        onValueChange={(val) => handleChange("clinicName", val)}
+      >
+        <SelectTrigger>
+          <SelectValue placeholder="Select Clinic" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="Happy Pets">Happy Pets</SelectItem>
+          <SelectItem value="Care Clinic">Care Clinic</SelectItem>
+        </SelectContent>
+      </Select>
+
+      {/* Clinic Address */}
+      <Input
+        type="text"
+        placeholder="Enter Clinic Address"
+        value={formData.clinicAddress}
+        onChange={(e) => handleChange("clinicAddress", e.target.value)}
+      />
+    </div>
+  );
+};
+
+export default FormComponent;
+
+
+
